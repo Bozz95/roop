@@ -50,6 +50,45 @@ python run.py [options]
 -v, --version                                                              show program's version number and exit
 ```
 
+### Examples
+
+```powershell
+$env:OPENVINO_DEVICE = "GPU.0"
+python run.py -s luca.jpg -t "C:\Users\mirco.bozzolini\Videos\SoloLuca1\SoloLuca1.mp4" -o solo_luca_rooped1.mp4 `
+    --frame-processor face_swapper face_enhancer `
+    --keep-fps --temp-frame-format png --temp-frame-quality 100 --output-video-quality 100 --output-video-encoder libx265 `
+    --many-faces `
+    --execution-provider openvino --execution-threads 3 `
+    --max-memory 8
+
+```
+
+--reference-face-position 0
+
+### TroubleShooting OpenVino
+
+Testing OpenVino gpu compatibility **on Windows11**:
+
+Based on you configuration the mileage can vary (thx OpenVino and your fantastic mess), so use this command to list all avaialble and supported model for you version:
+
+```powershell
+omz_downloader --print_all
+```
+
+1. Download a simple model:
+
+    ```sh
+    omz_downloader --name vehicle-detection-0200 --output_dir models
+    omz_converter --name vehicle-detection-0200 --output_dir models
+    ```
+
+    > Choose whatever model you have available at the moment
+2. Run the script and watch if OpenVino can run with GPU device;
+
+    ```sh
+    omz_downloader --name vehicle-detection-0200 --output_dir models
+    omz_converter --name vehicle-detection-0200 --output_dir models
+    ```
 
 ### Headless
 
